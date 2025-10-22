@@ -1,0 +1,25 @@
+ion-tab-bar {
+  --background: var(--ion-color-light);
+  --color-selected: var(--ion-color-primary);
+  --color: #555;
+}
+
+ion-tab-bar ion-icon {
+  font-size: 24px; /* tamaño uniforme */
+}
+
+ion-tab-bar {
+  --background: #ffffff;        /* fondo sólido */
+  --border-color: #e2e8f0;      /* línea superior más visible */
+  border-top: 1px solid var(--border-color);
+}
+
+ion-tab-bar ion-tab-button {
+  --color: #334155;             /* slate-700 */
+  --color-selected: #0f172a;    /* slate-950 bien oscuro */
+}
+
+ion-tab-bar ion-icon {
+  font-size: 24px;
+  opacity: 1 !important;        /* por si algún estilo lo deja pálido */
+}

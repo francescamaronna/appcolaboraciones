@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="inicio-content">
+  <section class="hero">
+    <div class="brand">⚡ Collab Flash</div>
+    <p class="tagline">Proyectos abiertos · Colaboradores verificados · Aprobación simple</p>
+  </section>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <ion-select interface="popover" placeholder="Proyecto" [(ngModel)]="filtroProyecto" (ionChange)="cargarFeed()">
+      <ion-select-option value="">Todos</ion-select-option>
+      <ion-select-option *ngFor="let p of proyectos" [value]="p.id_proyecto">
+        {{ p.nombre }}
+      </ion-select-option>
+    </ion-select>
+
+    <ion-segment [(ngModel)]="filtroTipo" (ionChange)="cargarFeed()">
+      <ion-segment-button value="">
+        <ion-label>Todos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="oferta">
+        <ion-label>Oferta</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="busqueda">
+        <ion-label>Búsqueda</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="anuncio">
+        <ion-label>Anuncio</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="cargarFeed(); $event.target.complete()">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Lista de publicaciones -->
+  <ion-list *ngIf="publicaciones.length; else empty" inset>
+    <ion-item-group>
+      <ion-item *ngFor="let pub of publicaciones" lines="none">
+        <ion-card class="pub-card">
+          <ion-card-header>
+            <ion-card-subtitle>{{ pub.proyecto_nombre || 'Proyecto' }}</ion-card-subtitle>
+            <ion-card-title>{{ pub.titulo || (pub.tipo | titlecase) }}</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p class="desc">{{ pub.descripcion }}</p>
+
+            <div class="chips" *ngIf="pub.habilidades?.length">
+              <ion-chip *ngFor="let h of pub.habilidades">{{ h }}</ion-chip>
+            </div>
+
+            <div class="meta">
+              <span class="tipo">{{ pub.tipo | titlecase }}</span>
+              <span class="autor" *ngIf="pub.autor_nombre">• por {{ pub.autor_nombre }}</span>
+              <span class="fecha">• {{ pub.fecha_creacion | date:'shortDate' }}</span>
+            </div>
+
+            <div class="actions">
+              <!-- CTA según estado -->
+              <ng-container [ngSwitch]="estadoCTA(pub)">
+                <ion-button *ngSwitchCase="'no-login'" fill="solid" (click)="router.navigateByUrl('/login')">
+                  Registrate / Ingresá
+                </ion-button>
+
+                <ion-button *ngSwitchCase="'pendiente'" fill="outline" disabled>
+                  Perfil pendiente de aprobación
+                </ion-button>
+
+                <ion-button *ngSwitchCase="'aprobado'" fill="solid" (click)="solicitarUnirme(pub)">
+                  Ya sos colaborador · Avisar interés
+                </ion-button>
+
+                <ion-button *ngSwitchDefault fill="solid" (click)="solicitarUnirme(pub)">
+                  Solicitar unirme
+                </ion-button>
+              </ng-container>
+
+              <ion-button fill="outline" (click)="verColaboradores(pub)">
+                Ver colaboradores
+              </ion-button>
+
+              <ion-button *ngIf="esResponsable(pub)" fill="clear" (click)="irGestion(pub)">
+                Gestionar
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-item-group>
+  </ion-list>
+
+  <ng-template #empty>
+    <div class="empty">
+      <p *ngIf="!cargando">No hay publicaciones con estos filtros.</p>
+      <ion-spinner *ngIf="cargando"></ion-spinner>
+    </div>
+  </ng-template>
+</ion-content>

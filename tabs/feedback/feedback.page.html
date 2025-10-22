@@ -1,0 +1,97 @@
+<ion-header translucent="true">
+  <ion-toolbar class="header">
+    <ion-title class="titulo">💬 Puntuar colaborador</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo ion-padding">
+  <div class="contenedor">
+    <!-- Tarjeta principal -->
+    <ion-card class="tarjeta">
+      <ion-card-header>
+        <ion-card-title>Tu experiencia</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- Instrucciones -->
+        <div class="instrucciones">
+          <p>Seleccioná cuántas estrellas querés otorgar según tu experiencia:</p>
+          <ul>
+            <li>⭐ 1-3: Mala experiencia</li>
+            <li>⭐ 4-6: Regular</li>
+            <li>⭐ 7-9: Buena</li>
+            <li>⭐ 10: Excelente trabajo</li>
+          </ul>
+        </div>
+
+        <!-- Selector de estrellas -->
+        <ion-item lines="none" class="input-item">
+          <ion-label position="stacked">Seleccioná estrellas (1 a 10):</ion-label>
+          <ion-range
+            min="1"
+            max="10"
+            step="1"
+            snaps="true"
+            [(ngModel)]="puntuacion"
+            (ionChange)="actualizarEstrellas()"
+          ></ion-range>
+        </ion-item>
+
+        <!-- Vista de estrellas -->
+        <div class="estrellas">{{ estrellasVisuales }}</div>
+
+        <!-- Comentario -->
+        <ion-item lines="none" class="input-item">
+          <ion-label position="stacked">Comentario / feedback:</ion-label>
+          <ion-textarea
+            [(ngModel)]="comentario"
+            placeholder="Contanos tu experiencia..."
+            autoGrow="true"
+          ></ion-textarea>
+        </ion-item>
+
+        <!-- Botón enviar -->
+        <ion-button expand="block" class="boton" (click)="enviarPuntuacion()">
+          Enviar puntuación
+        </ion-button>
+
+        <!-- Mensaje de estado -->
+        <ion-card *ngIf="mensaje" class="mensaje-card">
+          <ion-card-content>{{ mensaje }}</ion-card-content>
+        </ion-card>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Lista de feedbacks existentes -->
+    <ion-card class="lista-feedback">
+      <ion-card-header>
+        <ion-card-title>Comentarios recientes</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let f of feedbacks">
+            <ion-label>
+              <h2>⭐ {{ f.cantidad_estrellas }}</h2>
+              <p>{{ f.comentario }}</p>
+            </ion-label>
+            <ion-button
+              fill="clear"
+              color="primary"
+              (click)="editarFeedback(f)"
+            >
+              Editar
+            </ion-button>
+            <ion-button
+              fill="clear"
+              color="danger"
+              (click)="eliminarFeedback(f.id)"
+            >
+              Eliminar
+            </ion-button>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

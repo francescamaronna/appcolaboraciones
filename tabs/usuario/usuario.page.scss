@@ -1,0 +1,143 @@
+/* ===============================
+   Fondo en degradé pastel (scoped)
+   =============================== */
+ion-content,
+.usuario-content {
+  --background: linear-gradient(
+    135deg,
+    #f4b0bf 0%,
+    #ffdcb7 45%,
+    #e6c6f8 100%
+  ) !important;
+  position: relative;
+}
+
+/* luces suaves decorativas */
+ion-content::before,
+ion-content::after,
+.usuario-content::before,
+.usuario-content::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  border-radius: 9999px;
+  filter: blur(40px);
+  opacity: .55;
+  pointer-events: none;
+}
+ion-content::before,
+.usuario-content::before {
+  width: 240px; height: 240px;
+  left: -60px; top: 90px;
+  background: radial-gradient(closest-side, #8aa4ed, transparent 70%);
+}
+ion-content::after,
+.usuario-content::after {
+  width: 260px; height: 260px;
+  right: -70px; bottom: 150px;
+  background: radial-gradient(closest-side, #ffd9ee, transparent 70%);
+}
+
+/* ===============================
+   Tarjetas “glass”
+   =============================== */
+.card.pastel,
+ion-card {
+  background: rgba(255, 255, 255, 0.66);
+  backdrop-filter: saturate(130%) blur(8px);
+  -webkit-backdrop-filter: saturate(130%) blur(8px);
+  border: 1px solid rgba(75, 78, 107, 0.10);
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(70, 56, 112, 0.10);
+  position: relative;
+  z-index: 1; /* por encima de las luces */
+}
+
+ion-card-header { padding-bottom: 6px; }
+ion-card-title   { color: #1c1c28; font-weight: 700; letter-spacing: .2px; }
+ion-card-subtitle{ color: #6b6b80; }
+
+/* ===============================
+   Encabezado (modo VER)
+   =============================== */
+.user-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding-top: 4px;
+}
+.avatar {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 800;
+  letter-spacing: .6px;
+  color: #f35898;
+  background: linear-gradient(135deg, #eec2c8, #f2e8c2);
+  box-shadow: inset 0 0 0 2px rgba(60, 74, 158, .10),
+              0 4px 14px rgba(60, 74, 158, .12);
+}
+.names { text-align: center; }
+.names ion-card-title   { font-size: 1.12rem; }
+.names ion-card-subtitle{ font-size: .93rem; }
+
+/* ===============================
+   Lista de lectura (datos a la derecha)
+   =============================== */
+.read-list ion-item {
+  --min-height: 48px;
+  --background: transparent;
+  --inner-padding-end: 0;
+  --border-color: rgba(60, 74, 158, .08);
+}
+.read-list ion-label { color: #3a3a4d; }
+.read-list [slot="end"] { color: #1c1c28; font-weight: 700; }
+
+/* ===============================
+   Inputs (modo EDITAR)
+   =============================== */
+.item {
+  --background: transparent;
+  --border-color: rgba(60, 74, 158, .10);
+}
+.item ion-input, .item ion-textarea, .item ion-select {
+  --padding-start: 0;
+  color: #1c1c28;
+}
+
+/* ===============================
+   Botones (gradiente pastel)
+   =============================== */
+.actions { margin-top: 10px; }
+.actions.two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+ion-button {
+  --border-radius: 12px;
+  --box-shadow: 0 6px 18px rgba(114, 89, 255, 0.18);
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+
+/* sólido */
+ion-button:not([fill="outline"]) {
+  --background: linear-gradient(90deg, #ebb5e1, #ebc5a4) !important;
+  --color: #fff;
+}
+
+/* outline */
+ion-button[fill="outline"] {
+  --border-color: rgba(205, 99, 116, 0.35);
+  --color: #6a5bff;
+  background: rgba(255,255,255,.45);
+  backdrop-filter: blur(6px);
+}
+
+/* ===============================
+   Detalles
+   =============================== */
+.muted { color: #6b6b80; font-size: .85rem; margin-top: 10px; }

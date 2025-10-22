@@ -1,0 +1,112 @@
+:root {
+  --azul-900: #0b1b2b;
+  --azul-700: #13314e;
+  --azul-500: #265a8f;
+  --azul-300: #4b7cbf;
+  --gris-100: #f3f6fa;
+  --gris-400: #cfd8e3;
+  --blanco: #ffffff;
+  --texto: #e7edf3;
+}
+
+/* ===== Fondo general ===== */
+ion-content {
+  --background: linear-gradient(160deg, var(--azul-900), var(--azul-700));
+  color: var(--texto);
+}
+
+/* ===== Sección superior ("Colaborar") ===== */
+.hero {
+  text-align: center;
+  padding: 16px 8px 6px;
+
+  h2 {
+    margin: 0;
+    color: var(--blanco);
+    font-weight: 700;
+  }
+
+  .muted {
+    color: #a0b6ce;
+  }
+}
+
+/* ===== Campos y formulario ===== */
+ion-item {
+  --background: rgba(255, 255, 255, 0.05);
+  --color: var(--texto);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+/* ===== Segmento de visibilidad ===== */
+ion-segment {
+  background: rgba(51, 76, 107, 0.857);
+  border-radius: 10px;
+  margin: 10px 0;
+}
+
+ion-segment-button {
+  --color: #a4b8cf;
+  --color-checked: var(--azul-300);
+  --indicator-color: var(--azul-300);
+  font-weight: 600;
+}
+
+/* ===== Botón "Guardar" ===== */
+ion-button {
+  --background: linear-gradient(90deg, var(--azul-500), var(--azul-300));
+  --color: #294a6b;
+  --border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+ion-button:hover {
+  filter: brightness(1.1);
+}
+
+/* ===== Estado de solicitudes ===== */
+small {
+  font-size: 13px;
+}
+
+.estado {
+  margin: 10px 8px;
+}
+
+/* ✅ Colores actualizados */
+.pendiente {
+  color: #cf804b; /* azul celeste en lugar de amarillo */
+}
+
+.aprobado {
+  color: #4ade80; /* verde esmeralda más moderno */
+}
+
+.rechazado {
+  color: #ef4444; /* rojo coral elegante */
+}
+
+/* ===== Listado de solicitudes ===== */
+ion-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  color: var(--texto);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  margin: 12px 8px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+ion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+
+.loading {
+  text-align: center;
+  color: #a0b6ce;
+}

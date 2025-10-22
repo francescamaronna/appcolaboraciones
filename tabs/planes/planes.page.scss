@@ -1,0 +1,138 @@
+/* ===========================
+   Fondo y header (pastel CLARO pero más llamativo)
+   =========================== */
+ion-content {
+  /* blobs pastel más intensos + base clara */
+  --background:
+    radial-gradient(1200px 700px at -10% -10%, #ffd6e7 38%, transparent 62%),
+    radial-gradient(1100px 650px at 110% -6%, #e3d7ff 36%, transparent 64%),
+    radial-gradient(1000px 620px at 10% 92%, #d7fbe8 32%, transparent 68%),
+    radial-gradient(900px 560px at 95% 88%, #ffe6b3 30%, transparent 70%),
+    linear-gradient(180deg, var(--app-bg-start), var(--app-bg-end));
+  color: #374151; /* texto base legible */
+}
+
+ion-toolbar {
+  --background: transparent;
+  --color: #a78bfa;            /* lavanda pastel para el título */
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  backdrop-filter: blur(4px);
+}
+ion-title {
+  font-family: var(--font-title);
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-size: 22px;
+  text-transform: uppercase;
+  text-shadow: none;
+  color: #a78bfa;              /* mismo color del header */
+}
+
+/* ===========================
+   Cards (alta / edición) — ROSA BEBÉ
+   =========================== */
+ion-card {
+  margin: 16px auto;
+  max-width: 560px;
+  border-radius: 18px;
+
+  /* rosa bebé suave (en lugar de blanco) */
+  background: linear-gradient(180deg, #ffeef7 0%, #ffe4f2 100%);
+  border: 1px solid #f6d6e6;
+  box-shadow: 0 8px 24px rgba(31, 41, 55, 0.08);
+  backdrop-filter: none; /* ya no usamos efecto glass aquí */
+}
+ion-card-title{
+  font-family: var(--font-title);
+  font-weight: 800;
+  letter-spacing: .3px;
+  color: #7a5370; /* malva para contraste suave */
+}
+
+/* ===========================
+   Inputs / Items — ROSA SUAVE
+   =========================== */
+ion-item {
+  margin-bottom: 12px;
+  --background: rgba(255, 238, 247, 0.85); /* rosa bebé translúcido */
+  --color: #374151;
+  --highlight-color-focused: var(--ion-color-primary);
+  --min-height: 64px;
+  border: 1px solid #f6d6e6;
+  border-radius: 12px;
+}
+ion-label { color: #7f8a9b; font-size: 14px; }
+ion-input { color: #1f2937; font-size: 15px; padding-top: 6px; padding-bottom: 6px; }
+ion-toggle {
+  --handle-background: #ffffff;
+  --background: #f9d8ef;           /* base del toggle rosita */
+  --background-checked: #f4c4e3;   /* rosita un toque más intenso */
+}
+
+/* ===========================
+   Botones (gradiente pastel)
+   =========================== */
+ion-button{
+  margin-top: 12px;
+  --border-radius: 14px;
+  --background: linear-gradient(135deg, #c7bdfa, #ffd1e6); /* lavanda → rosa pastel */
+  --background-activated: linear-gradient(135deg, #b8aef7, #ffc9e2);
+  --box-shadow: 0 8px 18px rgba(184,174,247,.25);
+  color: #2b2b2b;            /* contraste suave oscuro */
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+ion-button.button-outline { --box-shadow: none; }
+
+/* ===========================
+   Listado de planes
+   =========================== */
+ion-list {
+  background: transparent !important;
+  max-width: 760px;
+  margin: 0 auto;
+}
+ion-item::part(native) {
+  background: var(--glass-bg);               /* mantenemos lista con “glass” claro */
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: 14px;
+  margin-bottom: 10px;
+}
+ion-label h2 {
+  font-family: var(--font-title);
+  font-size: 18px;
+  color: #3b3b59;
+  font-weight: 800;
+  text-shadow: none;
+}
+ion-label p { color: #6b7280; }
+
+/* Badges pastel */
+ion-badge {
+  margin-left: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .2px;
+}
+ion-badge[color="success"]{
+  background: linear-gradient(135deg,#d1fae5,#a7f3d0); /* verde pastel */
+  color:#243b36;
+}
+ion-badge[color="medium"]{
+  background: linear-gradient(135deg,#e5e7eb,#cbd5e1); /* gris pastel */
+  color:#374151;
+}
+
+/* util */
+.ml-2 { margin-left: 8px; }
+
+/* hover desktop */
+@media (hover: hover) {
+  ion-item:hover::part(native) {
+    border-color: rgba(0,0,0,.12);
+    transform: translateY(-1px);
+    transition: all .2s ease;
+  }
+}

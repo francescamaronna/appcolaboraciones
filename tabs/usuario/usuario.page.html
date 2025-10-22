@@ -1,0 +1,100 @@
+<!-- ===== Datos de cuenta (VER) ===== -->
+<ion-content [fullscreen]="true" class="usuario-content">
+  <ion-card class="card pastel" *ngIf="modo==='view'">
+    <ion-card-header class="user-header">
+      <div class="avatar">{{ iniciales }}</div>
+      <div class="names">
+        <ion-card-title>{{ displayName || 'Tu nombre' }}</ion-card-title>
+        <ion-card-subtitle>{{ usuario?.email }}</ion-card-subtitle>
+      </div>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list lines="full" class="read-list">
+        <ion-item>
+          <ion-label>Teléfono</ion-label>
+          <div slot="end">{{ usuario?.telefono || '—' }}</div>
+        </ion-item>
+        <ion-item>
+          <ion-label>Zona horaria</ion-label>
+          <div slot="end">{{ usuario?.zona_horaria || '—' }}</div>
+        </ion-item>
+        <ion-item>
+          <ion-label>País</ion-label>
+          <div slot="end">{{ usuario?.pais || '—' }}</div>
+        </ion-item>
+      </ion-list>
+
+      <div class="actions">
+        <ion-button expand="block" (click)="editar()">Editar</ion-button>
+      </div>
+
+      <!-- 🔴 NUEVO: eliminar cuenta en modo VER -->
+      <div class="actions">
+        <ion-button expand="block" color="danger" fill="outline" (click)="eliminarCuenta()">
+          Eliminar cuenta
+        </ion-button>
+      </div>
+
+      <p class="muted" *ngIf="lastUpdated">
+        Última actualización: {{ lastUpdated | date:'shortTime' }}
+      </p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- ===== Datos de cuenta (EDITAR) ===== -->
+  <ion-card class="card pastel" *ngIf="modo==='edit'">
+    <ion-card-header>
+      <ion-card-title>Editar cuenta</ion-card-title>
+      <ion-card-subtitle>Información básica</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <form (ngSubmit)="guardarUsuario()" autocomplete="on">
+        <ion-item class="item">
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input [(ngModel)]="editable!.nombre" name="nombre" required></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="stacked">Apellido</ion-label>
+          <ion-input [(ngModel)]="editable!.apellido" name="apellido" required></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input [value]="usuario?.email" readonly></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="stacked">Teléfono</ion-label>
+          <ion-input [(ngModel)]="editable!.telefono" name="telefono" inputmode="tel"></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="stacked">Zona horaria</ion-label>
+          <ion-input [(ngModel)]="editable!.zona_horaria" name="zona_horaria" placeholder="America/Argentina/Buenos_Aires"></ion-input>
+        </ion-item>
+
+        <ion-item class="item">
+          <ion-label position="stacked">País</ion-label>
+          <ion-input [(ngModel)]="editable!.pais" name="pais"></ion-input>
+        </ion-item>
+
+        <div class="actions two">
+          <ion-button fill="outline" (click)="cancelar()" type="button">Cancelar</ion-button>
+          <ion-button type="submit" [disabled]="guardando">
+            {{ guardando ? 'Guardando…' : 'Guardar' }}
+          </ion-button>
+        </div>
+      </form>
+
+      <!-- 🔴 NUEVO: eliminar cuenta también en modo EDITAR -->
+      <div class="actions">
+        <ion-button expand="block" color="danger" fill="outline" (click)="eliminarCuenta()" type="button">
+          Eliminar cuenta
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Proyectos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="hero">
+    <div class="brand">⚡ Collab Flash</div>
+    <div class="subtitle">Explorá proyectos, publicaciones y equipos</div>
+  </div>
+
+  <ion-item lines="none" class="filter">
+    <ion-icon name="search-outline" slot="start"></ion-icon>
+    <ion-input
+      [(ngModel)]="filtroTexto"
+      placeholder="Buscar por nombre o descripción">
+    </ion-input>
+  </ion-item>
+
+  <ion-list *ngIf="!cargando; else loading">
+    <ion-item
+      class="card"
+      button
+      detail
+      *ngFor="let p of proyectosFiltrados"
+      (click)="abrirDetalle(p)">
+      <ion-label>
+        <h2>{{ p.nombre }}</h2>
+        <p class="desc">{{ p.descripcion || 'Sin descripción' }}</p>
+        <div class="chips">
+          <ion-chip>📄 {{ p.publicaciones_activas }} publicaciones</ion-chip>
+          <ion-chip>👥 {{ p.colaboradores_activos }} colaboradores</ion-chip>
+          <ion-chip *ngIf="p.esResponsable && p.pendientes! > 0" color="warning">
+            ⏳ {{ p.pendientes }} pendientes
+          </ion-chip>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #loading>
+    <div class="loading">Cargando proyectos...</div>
+  </ng-template>
+
+  <!-- Modal detalle -->
+  <ion-modal [isOpen]="abierto()" (didDismiss)="cerrarDetalle()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>{{ seleccionado?.nombre }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cerrarDetalle()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="detail">
+        <h3>Descripción</h3>
+        <p>{{ seleccionado?.descripcion || 'Sin descripción' }}</p>
+
+        <h3>Publicaciones activas</h3>
+        <div *ngIf="pubs.length === 0" class="muted">No hay publicaciones activas.</div>
+        <ion-card *ngFor="let pub of pubs">
+          <ion-card-header>
+            <ion-card-title>{{ pub.titulo || (pub.tipo | uppercase) }}</ion-card-title>
+            <ion-card-subtitle>
+              {{ pub.tipo | uppercase }} • {{ pub.fecha_creacion | date:'shortDate' }}
+            </ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p class="muted">{{ pub.descripcion }}</p>
+            <div class="tags">
+              <ion-chip *ngFor="let h of pub.habilidades || []">{{ h }}</ion-chip>
+            </div>
+            <div class="row">
+              <ion-button
+                size="small"
+                [disabled]="deshabilitarSolicitar() || creandoSolicitud"
+                (click)="solicitarUnirme(pub)">
+                Solicitar unirme
+              </ion-button>
+            </div>
+          </ion-card-content>
+        </ion-card>
+
+        <h3>Colaboradores</h3>
+        <div *ngIf="colabs.length === 0" class="muted">Sin colaboradores aún.</div>
+        <ion-list>
+          <ion-item *ngFor="let c of colabs">
+            <ion-avatar slot="start"><img src="https://i.pravatar.cc/80?u={{c.id_usuario}}"></ion-avatar>
+            <ion-label>
+              <h2>{{ c.nombre }}</h2>
+              <p>⭐ {{ c.promedio_estrellas }} ({{ c.cantidad_calificaciones }})</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+        <!-- Gestión básica (opcional): aprobar/rechazar pendientes -->
+        <ng-container *ngIf="seleccionado?.esResponsable">
+          <h3>Solicitudes pendientes</h3>
+          <app-solicitudes [idProyecto]="seleccionado?.id_proyecto"
+                           (aprobar)="aprobarSolicitud($event)"
+                           (rechazar)="rechazarSolicitud($event)"></app-solicitudes>
+        </ng-container>
+
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

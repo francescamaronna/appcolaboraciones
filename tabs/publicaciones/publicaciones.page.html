@@ -1,0 +1,109 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-title> Publicaciones </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding fondo-pastel">
+
+  <!-- Alta -->
+  <ion-card class="card-form">
+    <ion-card-header>
+      <ion-card-title>Nueva Publicación</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item class="input-item">
+  <ion-label position="stacked">Tipo</ion-label>
+  <ion-select
+    interface="action-sheet"
+    placeholder="Seleccioná un tipo"
+    [(ngModel)]="nuevaPublicacion.tipo">
+    <ion-select-option value="oferta">Oferta (ofrezco algo)</ion-select-option>
+    <ion-select-option value="busqueda">Búsqueda (necesito algo)</ion-select-option>
+    <ion-select-option value="anuncio">Anuncio</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item class="input-item">
+  <ion-label position="floating">Descripción</ion-label>
+  <ion-textarea rows="3" [(ngModel)]="nuevaPublicacion.descripcion"></ion-textarea>
+</ion-item>
+
+
+      <ion-button expand="block" class="btn-agregar" (click)="agregarPublicacion()">
+        <ion-icon name="add-circle-outline"></ion-icon>&nbsp;Agregar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Edición -->
+  <ion-card *ngIf="editando" class="card-editar">
+    <ion-card-header>
+      <ion-card-title>Editar Publicación</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      
+      <ion-item>
+  <ion-label position="stacked">Tipo</ion-label>
+  <ion-select
+    interface="action-sheet"
+    placeholder="Seleccioná un tipo"
+    [(ngModel)]="publicacionEditando.tipo">
+    <ion-select-option value="oferta">Oferta (ofrezco algo)</ion-select-option>
+    <ion-select-option value="busqueda">Búsqueda (necesito algo)</ion-select-option>
+    <ion-select-option value="anuncio">Anuncio</ion-select-option>
+  </ion-select>
+</ion-item>
+ 
+
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-textarea [(ngModel)]="publicacionEditando.descripcion"></ion-textarea>
+      </ion-item>
+
+      <div class="botones-edicion">
+        <ion-button color="success" (click)="guardarEdicion()">Guardar</ion-button>
+        <ion-button color="medium" (click)="editando = false">Cancelar</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- LISTADO GARANTIZADO (botones siempre visibles) -->
+<div *ngIf="publicaciones.length > 0; else noPubs" class="lista-publicaciones">
+  <ion-card class="pub-card" *ngFor="let pub of publicaciones">
+    <ion-card-content>
+      <div class="pub-row">
+        <div class="pub-text">
+          <h2>{{ pub.tipo | titlecase }}</h2>
+          <p>{{ pub.descripcion }}</p>
+          <small>Publicado recientemente</small>
+        </div>
+
+        <div class="pub-actions">
+         <ion-button size="small" fill="outline" class="btn-editar"
+            (click)="editarPublicacion(pub)">
+  <ion-icon name="create-outline" slot="start"></ion-icon>
+  Editar
+</ion-button>
+
+<ion-button size="small" fill="outline" class="btn-eliminar"
+            (click)="eliminarPublicacion(pub.id_publicacion)">
+  <ion-icon name="trash-outline" slot="start"></ion-icon>
+  Eliminar
+</ion-button>
+
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</div>
+
+
+  <ng-template #noPubs>
+    <div class="sin-publicaciones">
+      <ion-icon name="document-text-outline" size="large"></ion-icon>
+      <p>No hay publicaciones todavía</p>
+    </div>
+  </ng-template>
+</ion-content>

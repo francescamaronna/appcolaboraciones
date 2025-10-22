@@ -1,0 +1,167 @@
+:root {
+  --azul-900: #0b1b2b;
+  --azul-700: #13314e;
+  --azul-500: #265a8f;
+  --azul-300: #5c8cc0;
+  --gris-100: #f2f5f9;
+  --gris-300: #dbe3eb;
+  --gris-500: #9aa4b3;
+  --blanco: #ffffff;
+  --acento: #3471b8;
+}
+
+/* ==================== */
+/* FONDO Y TEXTO GENERAL */
+/* ==================== */
+ion-content {
+  --background: var(--gris-100);
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+/* ==================== */
+/* HEADER Y HERO */
+/* ==================== */
+.hero {
+  padding: 18px 16px 10px;
+}
+
+.brand {
+  color: var(--azul-900);
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.tagline {
+  color: var(--gris-500);
+  text-align: center;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
+/* ==================== */
+/* FILTROS Y TABS SUPERIORES */
+/* ==================== */
+.filters {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 8px 12px 6px;
+}
+
+/* Segmentos (TODOS / OFERTA / BÚSQUEDA / ANUNCIO) */
+ion-segment {
+  background: #e8edf3;
+  border-radius: 10px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 2px;
+}
+
+ion-segment-button {
+  --color: #334155;
+  --color-checked: var(--azul-500);
+  --indicator-color: var(--azul-500);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+}
+
+ion-segment-button::part(indicator) {
+  border-radius: 10px;
+}
+
+/* ==================== */
+/* TARJETAS DE PROYECTO */
+/* ==================== */
+.pub-card {
+  width: 100%;
+  background: var(--blanco);
+  color: #1e293b;
+  border: 1px solid var(--gris-300);
+  border-radius: 14px;
+  margin: 12px 10px;
+  padding: 12px 14px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.pub-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* ==================== */
+/* TEXTO DE LAS TARJETAS */
+/* ==================== */
+ion-card-title {
+  color: var(--azul-700);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+ion-card-subtitle {
+  color: var(--azul-500);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.desc {
+  color: #334155;
+  margin-top: 6px;
+}
+
+.meta {
+  color: var(--gris-500);
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+/* ==================== */
+/* BOTONES DENTRO DE LAS TARJETAS */
+/* ==================== */
+ion-button {
+  --border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* Botón principal */
+ion-button[color="primary"] {
+  --background: var(--azul-500);
+  --background-hover: var(--azul-300);
+  --color: var(--blanco);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+ion-button[color="primary"]:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Botón alternativo */
+ion-button[color="light"] {
+  --background: transparent;
+  --color: var(--azul-500);
+  border: 1px solid var(--azul-500);
+}
+
+ion-button[color="light"]:hover {
+  background: rgba(38, 90, 143, 0.08);
+  transform: scale(1.02);
+}
+
+/* ==================== */
+/* VACÍO / SIN PROYECTOS */
+/* ==================== */
+.empty {
+  display: grid;
+  place-items: center;
+  min-height: 40vh;
+  color: var(--gris-500);
+  font-style: italic;
+  font-size: 0.95rem;
+}

@@ -1,0 +1,32 @@
+<ion-tabs>
+   <router-outlet></router-outlet>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" [routerLink]="['/tabs/home']">
+      <img src="assets/img/home-outline.svg" alt="Logout" style="width: 24px; height: 24px;" />
+    </ion-tab-button>
+
+
+  <ion-tab-button tab="proyectos" [routerLink]="['/tabs/proyectos']" routerDirection="root" aria-label="Proyectos">
+      <ion-icon name="briefcase-outline"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="colaborar" [routerLink]="['/tabs/colaborar']" routerDirection="root" aria-label="Colaborar">
+      <ion-icon name="people-outline"></ion-icon>
+    </ion-tab-button>
+
+  
+
+  
+<ion-tab-button tab="publicaciones" [routerLink]="['/tabs/publicaciones']" routerDirection="root">
+  <ion-icon ios="document-outline" md="document-outline"></ion-icon>
+</ion-tab-button>
+
+
+
+
+    <ion-tab-button (click)="logoutDirect()" tab="profile">
+      <img src="assets/img/log-out-outline.svg" alt="Logout" style="width: 24px; height: 24px;" />
+    </ion-tab-button>
+    
+  </ion-tab-bar>
+</ion-tabs>

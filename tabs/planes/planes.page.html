@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Planes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Alta -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Agregar Plan</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="nuevoPlan.nombre" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Precio</ion-label>
+        <ion-input type="number" inputmode="decimal" step="0.01" [(ngModel)]="nuevoPlan.precio" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Activo</ion-label>
+        <ion-toggle [(ngModel)]="nuevoPlan.activo"></ion-toggle>
+      </ion-item>
+
+      <ion-button expand="block" (click)="agregarPlan()">Agregar</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Edición -->
+  <ion-card *ngIf="editando">
+    <ion-card-header>
+      <ion-card-title>Editar Plan</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input [(ngModel)]="planEditando.nombre" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Precio</ion-label>
+        <ion-input type="number" inputmode="decimal" step="0.01" [(ngModel)]="planEditando.precio" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Activo</ion-label>
+        <ion-toggle [(ngModel)]="planEditando.activo"></ion-toggle>
+      </ion-item>
+
+      <ion-button expand="block" (click)="guardarEdicion()">Guardar cambios</ion-button>
+      <ion-button expand="block" fill="outline" color="medium" (click)="cancelarEdicion()">Cancelar</ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Listado -->
+  <ion-list>
+    <ion-item *ngFor="let p of planes">
+      <ion-label>
+        <h2>
+          {{ p.nombre }}
+          <ion-badge [color]="p.activo ? 'success' : 'medium'" class="ml-2">
+            {{ p.activo ? 'Activo' : 'Inactivo' }}
+          </ion-badge>
+        </h2>
+        <p>Precio: ${{ p.precio }}</p>
+      </ion-label>
+      <ion-button fill="clear" color="primary" (click)="editarPlan(p)">Editar</ion-button>
+      <ion-button fill="clear" color="danger" (click)="eliminarPlan(p.id)">Eliminar</ion-button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

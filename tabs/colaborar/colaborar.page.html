@@ -1,0 +1,110 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Colaborar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="hero">
+    <h2>Tu perfil de colaborador</h2>
+    <p class="muted">Completalo para postularte a publicaciones</p>
+  </div>
+
+  <ng-container *ngIf="!cargando; else loading">
+    <!-- Estado -->
+    <ion-card class="estado" *ngIf="estadoColaborador() !== 'sin_perfil'">
+      <ion-card-content>
+        <ion-badge color="success" *ngIf="estadoColaborador()==='aprobado'">Perfil listo</ion-badge>
+        <ion-badge color="warning" *ngIf="estadoColaborador()==='pendiente'">Pendiente de aprobación</ion-badge>
+        <p class="muted small">Ya podés solicitar unirte desde Inicio/Proyectos.</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Formulario -->
+    <ion-list inset>
+      <ion-item>
+        <ion-label position="stacked">Rubro / Rol</ion-label>
+        <ion-input [(ngModel)]="form.rubro" placeholder="Ej: Diseño UX/UI"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Biografía</ion-label>
+        <ion-textarea rows="4" [(ngModel)]="form.biografia" placeholder="Contá brevemente tu experiencia"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Meses de experiencia</ion-label>
+        <ion-input type="number" [(ngModel)]="form.meses_experiencia" placeholder="Ej: 18"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Edad</ion-label>
+        <ion-input type="number" [(ngModel)]="form.edad" placeholder="Opcional"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">WhatsApp (URL)</ion-label>
+        <ion-input [(ngModel)]="form.whatsapp_url" placeholder="https://wa.me/54911..."></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">LinkedIn (URL)</ion-label>
+        <ion-input [(ngModel)]="form.linkedin_url" placeholder="https://linkedin.com/in/..."></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Visibilidad</ion-label>
+        <ion-segment [(ngModel)]="form.visibilidad">
+          <ion-segment-button value="publico">
+            <ion-label>Público</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="privado">
+            <ion-label>Privado</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </ion-item>
+    </ion-list>
+
+    <div class="actions">
+      <ion-button expand="block" [disabled]="guardando" (click)="guardar()">
+        Guardar
+      </ion-button>
+    </div>
+
+
+
+    <!-- Mis solicitudes -->
+    <ion-card class="mis-solicitudes">
+      <ion-card-header>
+        <ion-card-title>Mis solicitudes</ion-card-title>
+        <ion-card-subtitle>Postulaciones a proyectos/publicaciones</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <div *ngIf="!solicitudes.length" class="muted">Todavía no hiciste solicitudes.</div>
+
+        <ion-list *ngIf="solicitudes.length">
+          <ion-item *ngFor="let s of solicitudes">
+            <ion-label>
+              <h3>
+                {{ s.proyecto?.nombre || 'Proyecto' }}
+                <span *ngIf="s.publicacion?.titulo">• {{ s.publicacion?.titulo }}</span>
+              </h3>
+              <p class="muted">
+                {{ s.created_at | date:'short' }} — 
+                <strong [ngClass]="{
+                  'pendiente': s.estado==='pendiente',
+                  'aprobado': s.estado==='aprobado',
+                  'rechazado': s.estado==='rechazado'
+                }">{{ s.estado | uppercase }}</strong>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="loading">Cargando…</div>
+  </ng-template>
+</ion-content>
