@@ -1,0 +1,183 @@
+:root{
+  --navy-900:#eaeff5b6;  /* fondo base */
+  --navy-800:#c6d2dfd1;
+  --blue-700:#155b9c;
+  --blue-600:#1c7ed6;  /* vibrante */
+  --teal-500:#15aabf;  /* turquesa */
+  --sky-400:#4dabf7;
+  --blanco:#f4f7fb;
+}
+
+/* ===== Fondo general (oscuro pero con vida) ===== */
+ion-content.login-content{
+  --background:
+    radial-gradient(900px 600px at 20% 10%, rgba(189, 213, 230, 0.771), transparent 55%),
+    linear-gradient(160deg, var(--navy-900), var(--navy-800) 60%);
+  position: relative;
+  overscroll-behavior: contain;
+}
+
+/* ===== Marca arriba (sin cambiar HTML) ===== */
+ion-content.login-content::before{
+  content:"⚡  COLLAB FLASH";
+  position: fixed;
+  top:18px; left:50%;
+  transform:translateX(-50%);
+  z-index:20;
+  font-weight:800;
+  letter-spacing:.6px;
+  font-size:clamp(18px,2.2vw,24px);
+  color:#eaf2ff;
+  padding:8px 14px;
+  border-radius:999px;
+  background:linear-gradient(90deg, rgba(29,123,191,.35), rgba(16,61,104,.35));
+  border:1px solid rgba(255,255,255,.12);
+  backdrop-filter:blur(4px);
+  text-shadow:0 2px 12px rgba(0,0,0,.45);
+}
+
+/* ===== Card centrado y cuadrado (igual que la primera) ===== */
+.login-card{
+  width:clamp(300px, 88vw, 420px);
+  aspect-ratio:1/1;
+  max-height:min(88vh, 520px);
+
+  position:absolute;
+  top:50%; left:50%;
+  transform:translate(-50%, -50%);
+
+  /* degradé más divertido dentro del card */
+  background:linear-gradient(165deg,
+              rgba(18,52,86,.95) 0%,
+              rgba(19,92,136,.93) 55%,
+              rgba(31,141,182,.9) 100%);
+  color:var(--blanco);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:18px;
+  box-shadow:0 18px 60px rgba(0,0,0,.45);
+  padding:24px 20px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:14px;
+}
+
+/* Si la pantalla es bajita, evitamos cortes */
+@media (max-height:720px){
+  .login-card{ aspect-ratio:auto; max-height:none; }
+}
+
+/* ===== Inputs (más legibles) ===== */
+.login-item{
+  --background:transparent;
+  --color:#edf4ff;
+  --highlight-color-focused:#bfe2ff;
+  border:1px solid rgba(255,255,255,.85);
+  border-radius:14px;
+  margin:8px 0;
+  padding:2px 8px;
+  --min-height:56px;
+}
+.login-item ion-input::part(label){ font-size:15px; letter-spacing:.3px; color:#e7efff; }
+.login-item ion-input::part(native){ font-size:16px; color:#fff; }
+
+/* ===== Botones con borde azul oscuro + degradé azul ===== */
+.login-button{
+  --border-radius:12px;
+  --border-width:1px;
+  --border-style:solid;
+  --border-color:#0e2a4d;
+  --background:linear-gradient(90deg, var(--blue-600), var(--teal-500));
+  --color:#ffffff;
+  font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+  box-shadow:inset 0 -2px 0 rgba(0,0,0,.15);
+  transition:opacity .25s, transform .15s, filter .2s;
+}
+.login-button:hover{ filter:brightness(1.06); }
+.login-button:active{ opacity:.9; transform:scale(.985); }
+
+/* Disabled consistente */
+ion-button.login-button[disabled]{
+  opacity:.45;
+  --background:linear-gradient(90deg, #1b3e67, #153355);
+  --color:#ffffff !important;
+  cursor:not-allowed;
+}
+
+/* Botón Google también en azules (no violeta ni blanco plano) */
+.google-button{
+  --border-radius:12px;
+  --border-color:#0e2a4d;
+  --background:linear-gradient(90deg, var(--blue-700), var(--sky-400));
+  --color:#eaf4ff;
+  font-weight:700;
+}
+.google-button ion-icon{ font-size:18px; }
+
+/* Separadores y enlaces */
+.divider{ text-align:center; opacity:.85; color:#e0ecff; margin:6px 0; }
+.ayuda{ text-align:center; font-size:.9rem; opacity:.9; }
+.ayuda a{ color:#d0e2ff; text-decoration:underline; }
+
+/* Fondo azul oscuro simple (sin patrón) */
+ion-content.login-content {
+  --background: linear-gradient(160deg, #0b2038, #0a1730 55%, #081226 100%);
+  position: relative;
+}
+
+/* Anula cualquier capa/patrón previo que se haya agregado */
+ion-content.login-content::after {
+  content: none !important;
+  display: none !important;
+}
+/* ======== VISIBILIDAD TOTAL DE LABEL + ESPACIO DE ESCRITURA ======== */
+/* Altura y respiración del item */
+ion-content.login-content .login-item,
+ion-content.login-content ion-item {
+  --min-height: 66px;
+  --padding-start: 14px;
+  --inner-padding-end: 14px;
+  border: 1.4px solid rgba(255,255,255,.95);
+  border-radius: 14px;
+  --background: rgba(0,0,0,.18);   /* leve fondo dentro del campo */
+  overflow: visible;                /* para que el chip del label no se recorte */
+}
+
+/* Label (Correo / Contraseña) grande + chip oscuro para contraste */
+ion-content.login-content ion-input::part(label) {
+  font-size: 17px !important;
+  font-weight: 700;
+  letter-spacing: .2px;
+  color: #ffffff !important;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: rgba(8, 26, 46, 0.92);   /* chip oscuro */
+  /* lo subimos un poquito para despegarlo del borde */
+  transform: translateY(-12px);
+  display: inline-block;
+  text-shadow: 0 0 2px rgba(0,0,0,.35);
+  opacity: 1 !important;
+}
+
+/* Texto que escribe el usuario: tamaño + padding vertical */
+ion-content.login-content ion-input::part(native) {
+  font-size: 17px !important;
+  line-height: 1.35;
+  padding: 12px 0 !important;       /* más espacio para tipear */
+  color: #ffffff !important;
+}
+
+/* Placeholder (si existiera) visible */
+ion-content.login-content ion-input::part(native)::placeholder {
+  font-size: 16px;
+  color: #e7efff;
+  opacity: .95;
+}
+
+/* En foco: borde celeste y glow suave */
+ion-content.login-content .login-item:focus-within,
+ion-content.login-content ion-item:focus-within {
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 3px rgba(77,171,247,.20);
+}

@@ -1,0 +1,43 @@
+<ion-content class="login-content" fullscreen>
+  <div class="background-overlay"></div>
+
+  <div class="login-wrapper">
+    <div class="login-card">
+      <ion-icon name="person-circle-outline" class="login-icon"></ion-icon>
+      <h2 class="login-title">Bienvenido</h2>
+      <p class="login-subtitle"></p>
+
+      <!-- Inputs -->
+      <ion-item class="login-item">
+        <ion-label position="floating">Correo</ion-label>
+        <ion-input type="email" [(ngModel)]="email" name="email" required></ion-input>
+      </ion-item>
+
+      <ion-item class="login-item">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
+      </ion-item>
+
+      <!-- Acciones -->
+      <ion-button expand="block" class="login-button" (click)="login()">Ingresar</ion-button>
+      <ion-button expand="block" fill="outline" (click)="registerEmail()">Crear cuenta con email</ion-button>
+
+      <div class="divider">o</div>
+
+      <ion-button expand="block" fill="solid" class="google-button" (click)="loginGoogle()">
+        <ion-icon name="logo-google" slot="start"></ion-icon>
+        Continuar con Google
+      </ion-button>
+
+      <!-- Error -->
+      <ion-text color="danger" *ngIf="errorMessage">
+        <p>{{ errorMessage }}</p>
+      </ion-text>
+
+      <!-- Footer -->
+      <div class="footer-text">
+        ¿Tenés problemas? <a routerLink="/ayuda">Ayuda</a>
+      </div>
+    </div>
+  </div>
+</ion-content>
